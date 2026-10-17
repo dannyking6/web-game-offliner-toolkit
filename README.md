@@ -11,9 +11,9 @@ originality-driven and nothing else: classic games built on an already-known
 concept and clones of famous titles are rejected; every engine and every game
 type (2D, 3D…) is accepted equally, with NO engine priority and NO platform
 preference; the whole build must stay under a 20 MB size cap; the chosen
-game must NOT already be distributed on GamePix or GameMonetize; and
-Famobi-licensed games are excluded even when they surface on other portals
-through the Famobi wrapper.
+game must NOT already be distributed on GamePix or GameMonetize; Famobi-
+licensed games are excluded even when they surface on other portals through
+the Famobi wrapper; and Playgama-distributed games are excluded (playgama.com).
 
 > Proven end-to-end on 5 shipped games (Construct 3, Phaser 2, Phaser 3,
 > PixiJS 5, custom canvas engines) — including the traps: poisoned 404 assets,
@@ -57,6 +57,7 @@ Every phase encodes the hard-won gotchas that break naive attempts:
   Pages URL, ZIP name and README heading all reflect it; where the old logo
   was, neutral artwork or nothing. Portal credits, "powered by" links and
   sitelocks are removed entirely
+- ✅ **Complete file cleaning** — every shipped file is scrubbed so that neither the source platform name nor the original game name appears inside the game (code, assets, atlases, manifests); verified with a full recursive case-insensitive grep (0 in-game hits) before deploy
 - ✅ **Original games only** — classic games built on an already-known
   concept (2048, snake, solitaire, memory, Tetris-like, flappy/wordle
   clones…) and famous-title clones are rejected during selection
@@ -69,6 +70,7 @@ Every phase encodes the hard-won gotchas that break naive attempts:
   wrapper betrays licensed games wherever they surface (`play.famobi.com`
   hosts, `famobi.js`/`famobi_noa.js` loader, `window.famobi*` globals,
   "Powered by Famobi" credits): any hit = disqualified
+- ✅ **Playgama games excluded** — a game must NOT already be distributed on Playgama (playgama.com); any hit = disqualified
 - ✅ **20 MB size cap for EVERY engine** — HEAD-measured before download,
   no exception (Unity, Godot, Construct, Phaser, PixiJS, custom…)
 - ✅ **Game-files-only ZIP** — no README, no docs, no tooling inside the archive

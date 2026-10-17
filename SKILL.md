@@ -1,6 +1,6 @@
 ---
 name: web-game-offliner
-description: "Download any web game from any portal and any engine (Softgames, Poki, Construct, Phaser, PixiJS, Unity WebGL, Godot WebGL, etc.), strip its platform SDK, patch it into a fully self-contained offline build with a neutral driver, validate it with Playwright plus an application-level firewall, then deploy it to GitHub Pages under the game's ORIGINAL name (repo, Pages URL and ZIP all reflect the original game title — no invented name) with the in-game branding fully removed (the game itself ships unnamed) and a clean ZIP release. Game selection is originality-driven and NOTHING else: only games with an original concept are eligible — no classic games built on an already-known concept, no clones of famous titles; any engine and any game type (2D, 3D…) is acceptable, with NO engine priority and NO platform preference. The chosen game must NOT already be distributed on GamePix or GameMonetize (verify before committing), Famobi-licensed games are excluded even when they surface on other portals through the Famobi wrapper, and the whole build must stay under a 20 MB size cap for EVERY engine. BEFORE any download or cleaning the game is checked against BOTH publishing accounts (dannyking6, d2658182-hub) and skipped if it has already been cleaned there — never a duplicate build. Use when the user asks to localize, offline-ify, self-host, mirror, de-SDK, or republish a browser game."
+description: "Download any web game from any portal and any engine (Softgames, Poki, Construct, Phaser, PixiJS, Unity WebGL, Godot WebGL, etc.), strip its platform SDK, patch it into a fully self-contained offline build with a neutral driver, validate it with Playwright plus an application-level firewall, then deploy it to GitHub Pages under the game's ORIGINAL name (repo, Pages URL and ZIP all reflect the original game title — no invented name) with the in-game branding fully removed (the game itself ships unnamed) and a clean ZIP release. Game selection is originality-driven and NOTHING else: only games with an original concept are eligible — no classic games built on an already-known concept, no clones of famous titles; any engine and any game type (2D, 3D…) is acceptable, with NO engine priority and NO platform preference. The chosen game must NOT already be distributed on GamePix or GameMonetize (verify before committing), Famobi-licensed games are excluded even when they surface on other portals through the Famobi wrapper, Playgama-distributed games are excluded (playgama.com), and the whole build must stay under a 20 MB size cap for EVERY engine. The AI must also completely clean every shipped file so that neither the source platform name nor the original game name appears inside the game. BEFORE any download or cleaning the game is checked against BOTH publishing accounts (dannyking6, d2658182-hub) and skipped if it has already been cleaned there — never a duplicate build. Use when the user asks to localize, offline-ify, self-host, mirror, de-SDK, or republish a browser game."
 version: 1.8.0
 author: buffy
 tags: [games, offline, download, playwright, github-pages, gamepix, gamemonetize, famobi, godot]
@@ -129,6 +129,14 @@ Selection criteria, in order:
    - "Famobi" / "Powered by Famobi" credits in the page or the game
    Any hit = the game is Famobi-licensed = DISQUALIFIED, no matter which
    portal lists it.
+5b. **NO Playgama games — hard exclusion**: a game must NEVER already be
+   distributed on Playgama (playgama.com). BEFORE any download, search the
+   Playgama catalog for the title/keywords:
+   - `https://playgama.com/search?q=<title keywords>` (or the portal's search)
+   If the same game (same title, or unmistakably the same gameplay) already
+   exists on Playgama, the candidate is DISQUALIFIED. Playgama is a
+   distribution platform like GamePix/GameMonetize — shipping a game already
+   there is not allowed.
 6. **Size — hard cap for EVERY engine (v1.5.0)**: the total download must
    stay **under 20 MB for ALL engines alike** (Unity `.wasm`/`.data`, Godot
    `.wasm`/`.pck`, Construct/Phaser/PixiJS assets, everything). Measure the
@@ -437,6 +445,12 @@ invent a brand-new title.
      (the original name lives only on delivery surfaces: repo name, Pages
      URL, ZIP name, README heading, `<title>`/PWA metadata — nothing inside
      the game);
+   - **Complete file cleaning (MANDATORY)**: the AI must scrub every shipped
+     file so that NEITHER the source platform name (Poki, Softgames, Construct,
+     Phaser, …) NOR the original game name appears inside the game (code,
+     assets, atlases, manifests, metadata). A partial clean is a FAILED build —
+     verify with a full recursive case-insensitive grep and assert **0 in-game
+     hits** before deploy;
    - assert NO invented title exists anywhere (that mechanism is gone since
      v1.4.0) — every delivery surface carries the original name;
    - open the screens players rarely see (credits, about, settings, game
