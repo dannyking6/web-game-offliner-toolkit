@@ -1,7 +1,7 @@
 # web-game-offliner 🎮
 
 An agent skill for **Codebuff / any .agents-compatible agent**: download any
-web game from any portal and any engine (Softgames, Poki,
+web game from any portal and any engine (Softgames,
 Construct, Phaser, PixiJS, Unity WebGL, Godot WebGL…), strip its platform
 SDK, patch it into a **100% offline standalone build**, validate it with
 Playwright + an application firewall, and deploy it to GitHub Pages **under
@@ -73,6 +73,9 @@ Every phase encodes the hard-won gotchas that break naive attempts:
   hosts, `famobi.js`/`famobi_noa.js` loader, `window.famobi*` globals,
   "Powered by Famobi" credits): any hit = disqualified
 - ✅ **Playgama games excluded** — a game must NOT already be distributed on Playgama (playgama.com); any hit = disqualified
+- ✅ **Poki games excluded (v1.11.0)** — Poki is an excluded source platform: never
+  search Poki's catalog and never pick a game distributed on Poki (poki.com);
+  any hit = disqualified, the game must be left alone
 - ✅ **20 MB size cap for EVERY engine** — HEAD-measured before download,
   no exception (Unity, Godot, Construct, Phaser, PixiJS, custom…)
 - ✅ **Game-files-only ZIP** — no README, no docs, no tooling inside the archive

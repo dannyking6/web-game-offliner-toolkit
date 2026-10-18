@@ -1,7 +1,7 @@
 ---
 name: web-game-offliner
-description: "Download any web game from any portal and any engine (Softgames, Poki, Construct, Phaser, PixiJS, Unity WebGL, Godot WebGL, etc.), strip its platform SDK, patch it into a fully self-contained offline build with a neutral driver, validate it with Playwright plus an application-level firewall, then deploy it to GitHub Pages under the game's ORIGINAL name (repo, Pages URL and ZIP all reflect the original game title — no invented name) with the in-game branding fully removed (the game itself ships unnamed) and a clean ZIP release. Cleaning is TOTAL: every shipped file is scrubbed so that NEITHER the source platform name (Poki, Softgames, Construct, Phaser, …) NOR the original game name appears inside the game — 0 in-game hits, verified by a full recursive case-insensitive grep before deploy. Game selection is originality-driven and NOTHING else: only games with an original concept are eligible — no classic games built on an already-known concept, no clones of famous titles; any engine and any game type (2D, 3D…) is acceptable, with NO engine priority and NO platform preference. The chosen game must NOT already be distributed on GamePix or GameMonetize (verify before committing), Famobi-licensed games are excluded even when they surface on other portals through the Famobi wrapper, Playgama-distributed games are excluded (playgama.com), and the whole build must stay under a 20 MB size cap for EVERY engine. The AI must also completely clean every shipped file so that neither the source platform name nor the original game name appears inside the game. BEFORE any download or cleaning the game is checked against BOTH publishing accounts (dannyking6, d2658182-hub) and skipped if it has already been cleaned there — never a duplicate build. Use when the user asks to localize, offline-ify, self-host, mirror, de-SDK, or republish a browser game."
-version: 1.10.0
+description: "Download any web game from any portal and any engine (Softgames, Construct, Phaser, PixiJS, Unity WebGL, Godot WebGL, etc.), strip its platform SDK, patch it into a fully self-contained offline build with a neutral driver, validate it with Playwright plus an application-level firewall, then deploy it to GitHub Pages under the game's ORIGINAL name (repo, Pages URL and ZIP all reflect the original game title — no invented name) with the in-game branding fully removed (the game itself ships unnamed) and a clean ZIP release. Cleaning is TOTAL: every shipped file is scrubbed so that NEITHER the source platform name (Poki, Softgames, Construct, Phaser, …) NOR the original game name appears inside the game — 0 in-game hits, verified by a full recursive case-insensitive grep before deploy. Game selection is originality-driven and NOTHING else: only games with an original concept are eligible — no classic games built on an already-known concept, no clones of famous titles; any engine and any game type (2D, 3D…) is acceptable, with NO engine priority and NO platform preference. The chosen game must NOT already be distributed on GamePix or GameMonetize (verify before committing), Famobi-licensed games are excluded even when they surface on other portals through the Famobi wrapper, Playgama-distributed games are excluded (playgama.com), Poki-distributed games are excluded (poki.com), and the whole build must stay under a 20 MB size cap for EVERY engine. The AI must also completely clean every shipped file so that neither the source platform name nor the original game name appears inside the game. BEFORE any download or cleaning the game is checked against BOTH publishing accounts (dannyking6, d2658182-hub) and skipped if it has already been cleaned there — never a duplicate build. Use when the user asks to localize, offline-ify, self-host, mirror, de-SDK, or republish a browser game."
+version: 1.11.0
 author: buffy
 tags: [games, offline, download, playwright, github-pages, gamepix, gamemonetize, famobi, godot]
 ---
@@ -54,9 +54,11 @@ no external reference at all (Phase 5). See Phase 4 step 2 and Phase 5.
 
 1. **Catalog scan** — scan ANY portal's catalog or public game feed: no
    platform is preferred (v1.5.0). Known entry points, for reference only:
-   Poki's list is the sitemap
-   `https://poki.com/en/sitemaps/games.xml`. Pick candidates wherever
-   ORIGINAL games are found.
+   other portals' public game feeds. **Poki is EXCLUDED from the search
+   (v1.11.0): never scan Poki's catalog, never use its sitemap
+   (`https://poki.com/en/sitemaps/games.xml`) as a source, and never
+   pick a game that is distributed on Poki.** Pick candidates wherever
+   ORIGINAL games are found on non-Poki portals.
 2. **Engine fingerprint** — fetch each candidate's `index.html` and grep the
    runtime JS for:
    - `c3runtime` / `Scirra` → Construct 3
@@ -137,6 +139,14 @@ Selection criteria, in order:
    exists on Playgama, the candidate is DISQUALIFIED. Playgama is a
    distribution platform like GamePix/GameMonetize — shipping a game already
    there is not allowed.
+5c. **NO Poki games — hard exclusion (v1.11.0)**: a game must NEVER already
+   be distributed on Poki (poki.com). Poki is an excluded source platform:
+   do NOT search Poki's catalog, do NOT use its sitemap, and do NOT pick any
+   game that is listed on Poki (same title or unmistakably the same
+   gameplay). BEFORE any download, verify the candidate is absent from Poki:
+   - `https://poki.com/en/search?q=<title keywords>` (or the portal's search)
+   Any hit = DISQUALIFIED. A game found on Poki must be left alone — never
+   downloaded, never cleaned, never deployed.
 6. **Size — hard cap for EVERY engine (v1.5.0)**: the total download must
    stay **under 20 MB for ALL engines alike** (Unity `.wasm`/`.data`, Godot
    `.wasm`/`.pck`, Construct/Phaser/PixiJS assets, everything). Measure the
@@ -478,7 +488,12 @@ invent a brand-new title.
    with a fresh ZIP — existing GitHub releases are immutable, so a de-brand
    is never done until a new release carries the new build.
 
-## Poki-specific playbook
+## Poki-specific playbook (DEPRECATED / EXCLUDED — v1.11.0)
+
+> ⚠️ Poki is now an **excluded source platform**. Do NOT search Poki's
+> catalog and do NOT pick any game distributed on Poki (see Phase 0, rule 5c).
+> The playbook below is retained only as historical reference for already-
+> shipped Poki builds and must not be used to source new games.
 
 - **Catalog**: the game list is a sitemap — `https://poki.com/en/sitemaps/games.xml`
   (≈1500 slugs, one `<loc>` per line: `poki.com/en/g/<slug>`). `robots.txt` lists it.

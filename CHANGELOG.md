@@ -3,6 +3,17 @@
 All notable changes to the **web-game-offliner** skill.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.11.0] — 2026-10-18
+
+### Changed
+- **Poki excluded as a source platform**: Poki (poki.com) is now on the
+  avoid-list. Never scan Poki's catalog, never use its sitemap as a source,
+  and never pick a game distributed on Poki — such games must be left alone
+  (not downloaded, not cleaned, not deployed). Added as hard exclusion rule
+  5c in Phase 0 and the Poki-specific playbook is marked deprecated/excluded.
+  The Poki SDK cleaning rules still apply to non-Poki games that happen to
+  embed a Poki wrapper, but Poki itself is no longer a source.
+
 ## [1.10.0] — 2026-10-18
 
 ### Changed
