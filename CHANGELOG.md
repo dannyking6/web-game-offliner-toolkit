@@ -3,6 +3,18 @@
 All notable changes to the **web-game-offliner** skill.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.10.0] — 2026-10-18
+
+### Changed
+- **Invented name for ZIP / README / metadata**: the original game title is
+  now kept ONLY on two delivery surfaces — the repo name and the Pages URL.
+  The ZIP file name, the README heading and the in-game metadata (`<title>`,
+  PWA `name`/`short_name`) carry an INVENTED name (short, neutral, English,
+  kebab-case: no platform reference, no famous-title clone, no
+  "cleaned"/"offline"/"patched" suffix, not the original title). The game
+  itself still ships unnamed (0 in-game hits for the original name and the
+  platform name). The AI must coin this invented name during Phase 4.
+
 ## [1.9.0] — 2026-10-18
 
 ### Changed

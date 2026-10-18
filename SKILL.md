@@ -1,7 +1,7 @@
 ---
 name: web-game-offliner
 description: "Download any web game from any portal and any engine (Softgames, Poki, Construct, Phaser, PixiJS, Unity WebGL, Godot WebGL, etc.), strip its platform SDK, patch it into a fully self-contained offline build with a neutral driver, validate it with Playwright plus an application-level firewall, then deploy it to GitHub Pages under the game's ORIGINAL name (repo, Pages URL and ZIP all reflect the original game title — no invented name) with the in-game branding fully removed (the game itself ships unnamed) and a clean ZIP release. Cleaning is TOTAL: every shipped file is scrubbed so that NEITHER the source platform name (Poki, Softgames, Construct, Phaser, …) NOR the original game name appears inside the game — 0 in-game hits, verified by a full recursive case-insensitive grep before deploy. Game selection is originality-driven and NOTHING else: only games with an original concept are eligible — no classic games built on an already-known concept, no clones of famous titles; any engine and any game type (2D, 3D…) is acceptable, with NO engine priority and NO platform preference. The chosen game must NOT already be distributed on GamePix or GameMonetize (verify before committing), Famobi-licensed games are excluded even when they surface on other portals through the Famobi wrapper, Playgama-distributed games are excluded (playgama.com), and the whole build must stay under a 20 MB size cap for EVERY engine. The AI must also completely clean every shipped file so that neither the source platform name nor the original game name appears inside the game. BEFORE any download or cleaning the game is checked against BOTH publishing accounts (dannyking6, d2658182-hub) and skipped if it has already been cleaned there — never a duplicate build. Use when the user asks to localize, offline-ify, self-host, mirror, de-SDK, or republish a browser game."
-version: 1.9.0
+version: 1.10.0
 author: buffy
 tags: [games, offline, download, playwright, github-pages, gamepix, gamemonetize, famobi, godot]
 ---
@@ -281,8 +281,9 @@ Run **all** of these; each has caught real bugs:
 1. **ZIP release — game files ONLY (v1.3.0)**: the archive must contain
    nothing but what the game needs to run. **No README, no docs, no license
    files, no `.git`, no tooling, no leftover capture scripts.** Verify with
-   `unzip -l <zip>` before shipping. Name it `<original-game-name>-v1.0.0.zip`
-   — the ORIGINAL game title (kebab-case), see step 2; verify zero `.git`
+   `unzip -l <zip>` before shipping. Name it `<invented-name>-v1.0.0.zip`
+   — an INVENTED name (kebab-case, English, short, no platform reference,
+   not a famous title), NOT the original game title; verify zero `.git`
    entries inside.
 2. **GitHub repo** (one per game), push, enable **Pages via API**
    (`gh api repos/<owner>/<repo>/pages -X POST`), wait for the Pages build
@@ -290,23 +291,34 @@ Run **all** of these; each has caught real bugs:
    **Repo naming rule — MANDATORY (v1.4.0, supersedes v1.2.0/v1.3.0)**: the
    repo name MUST be the game's **ORIGINAL title** — exactly the name the
    portal gives the game (kebab-case: `drive-mad`, `jewels-blitz-5`…), so
-   the repo name, the Pages URL (`<owner>.github.io/<original-name>/`) and
-   the ZIP file name all **reflect the original game name**. Never use an
-   invented title — that mechanism no longer exists (v1.4.0). Never use the
-   original game id either if it differs from the human-readable title
-   (prefer `jewels-blitz-5` over `jb5_1080`), and never a `-offline`/`-game`
-   suffix. ⚠️ Do NOT confuse this game repo with this skill's own repo
+   the repo name and the Pages URL (`<owner>.github.io/<original-name>/`)
+   reflect the original game name. The ZIP file name, the README heading and
+   the in-game metadata (`<title>`, PWA `name`/`short_name`) do NOT use the
+   original name — they use an INVENTED name (see step 4 and Phase 5 step 4).
+   Never use the original game id either if it differs from the human-readable
+   title (prefer `jewels-blitz-5` over `jb5_1080`), and never a
+   `-offline`/`-game` suffix. ⚠️ Do NOT confuse this game repo with this
+   skill's own repo
    (`web-game-offliner`): never create, fork over, or overwrite a repo named
    `web-game-offliner` when publishing a game.
+3b. **Invented name (MANDATORY for ZIP, README, metadata)**: the AI must
+   coin a short, neutral, English, kebab-case name for the game
+   (`<invented-name>`) used for the ZIP file name, the README heading and the
+   in-game metadata (`<title>`, PWA `name`/`short_name`). Rules: no platform
+   reference, no famous-title clone, no "cleaned"/"offline"/"patched" suffix,
+   no non-ASCII, no spaces, not the original title, not a known game. It must
+   not appear inside the shipped game files either — only on those delivery
+   surfaces. The repo name and Pages URL keep the ORIGINAL title.
 3. **Live verification**: Playwright against the GitHub Pages URL — 0 errors,
    0 third-party requests, game advances past menus.
-4. **README.md — STRICT template (v1.4.0, in ENGLISH)**. The heading is the
-   game's ORIGINAL title (same as the repo name). Exactly TWO sections,
+4. **README.md — STRICT template (v1.4.0, in ENGLISH)**. The heading is an
+   INVENTED name (NOT the original game title — the original name is kept only
+   for the repo name and Pages URL). Exactly TWO sections,
    nothing else — no tech stack, no engine names, no modification lists, no
    run instructions, no badges, no screenshots section:
 
    ```markdown
-   # <Original Game Title>
+   # <Invented Name>
 
    ## About the game
    <A genuinely flattering, vivid description of what playing the game feels
@@ -363,13 +375,13 @@ no name may appear inside the game: no asset, no string, no metadata, on
 any screen — and **no new name is inserted in its place**: the game simply
 has no name.
 
-> **Scope note (v1.4.0 — supersedes v1.2.0/v1.3.0)**: the original game
-> title lives ONLY on delivery surfaces — repo name, Pages URL, ZIP file
-> name, README heading, `<title>`/PWA metadata. It is NOT integrated inside
-> the game: no in-game logo, no splash text, no title-screen wording. Inside
-> the shipped build a case-insensitive grep for the original game name must
-> return **0 hits** (0 in-game hits), while the delivery surfaces carry it
-> as-is.
+> **Scope note (v1.9.0 — supersedes v1.4.0)**: the original game title
+> lives ONLY on TWO delivery surfaces — the repo name and the Pages URL. The
+> ZIP file name, the README heading and the in-game metadata (`<title>`/PWA
+> `name`/`short_name`) carry an INVENTED name (never the original title and
+> never a famous title). The game itself ships unnamed: inside the shipped
+> build a case-insensitive grep for the original game name AND the platform
+> name must return **0 hits**, and no external references anywhere.
 
 **MANDATORY — Collision re-check before creating the repo (v1.8.0)**: the
 Phase 0 duplicate gate must have already stopped duplicates BEFORE any
@@ -430,11 +442,11 @@ invent a brand-new title.
    - Unity WebGL: swap the logo/title sprites or textures for same-size
      neutral images, or neutralize the UI element that renders them.
 4. **Update all metadata**: `<title>` + `meta[name=application-name]` in
-   index.html and PWA manifest `name`/`short_name` carry the **original
-   game title** (delivery surfaces, not in-game screens); i18n strings that
-   embed a name are removed or neutralized;
-   `GameData.BuildTitle`-style constants that expose the old name are emptied
-   or removed.
+   index.html and PWA manifest `name`/`short_name` carry an **INVENTED name**
+   (NOT the original game title — the original name is kept only for the repo
+   name and Pages URL); i18n strings that embed a name are removed or
+   neutralized; `GameData.BuildTitle`-style constants that expose the old name
+   are emptied or removed.
 5. **Verify the de-branding is COMPLETE — screen by screen**:
    - for EVERY screen listed in step 1: navigate to it in Playwright,
      screenshot it, and confirm no old-title pixels remain AND that no name,

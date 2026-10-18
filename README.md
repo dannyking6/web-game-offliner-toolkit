@@ -5,8 +5,10 @@ web game from any portal and any engine (Softgames, Poki,
 Construct, Phaser, PixiJS, Unity WebGL, Godot WebGL…), strip its platform
 SDK, patch it into a **100% offline standalone build**, validate it with
 Playwright + an application firewall, and deploy it to GitHub Pages **under
-the game's original name** — with the in-game branding completely removed
-(the shipped game is unnamed) and a clean ZIP release. Game selection is
+the game's original name (repo + Pages URL)** — ZIP file name, README heading
+and in-game metadata (`<title>`, PWA) carry an INVENTED name; in-game branding
+is completely removed (the shipped game is unnamed) and the build ships a clean
+ZIP release. Game selection is
 originality-driven and nothing else: classic games built on an already-known
 concept and clones of famous titles are rejected; every engine and every game
 type (2D, 3D…) is accepted equally, with NO engine priority and NO platform
@@ -52,11 +54,11 @@ Every phase encodes the hard-won gotchas that break naive attempts:
 - ✅ Old-title removal on **every screen** (splash, menu, level select,
   settings, pause, game over, credits…) — grep the whole build for the old
   name, assert 0 hits, verify screen by screen in Playwright
-- ✅ **No in-game name, no external references** — since v1.4.0 the game
-  ships unnamed and the delivery keeps the game's ORIGINAL name: repo,
-  Pages URL, ZIP name and README heading all reflect it; where the old logo
-  was, neutral artwork or nothing. Portal credits, "powered by" links and
-  sitelocks are removed entirely
+- ✅ **No in-game name, no external references** — the game ships unnamed;
+  only the repo name and Pages URL keep the game's ORIGINAL name. The ZIP
+  file name, README heading and in-game metadata (`<title>`, PWA) carry an
+  INVENTED name. Where the old logo was, neutral artwork or nothing. Portal
+  credits, "powered by" links and sitelocks are removed entirely
 - ✅ **Complete platform & name scrub** — every shipped file is scrubbed so that NEITHER the source platform name (whatever it is: Poki, Softgames, Construct, Phaser, PixiJS, Unity, Godot, Famobi, …) NOR the original game name appears inside the game (code, assets, atlases, manifests, metadata, strings, URLs, file names); verified with a full recursive case-insensitive grep asserting **0 in-game hits** before deploy
 - ✅ **Original games only** — classic games built on an already-known
   concept (2048, snake, solitaire, memory, Tetris-like, flappy/wordle
