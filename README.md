@@ -57,7 +57,7 @@ Every phase encodes the hard-won gotchas that break naive attempts:
   Pages URL, ZIP name and README heading all reflect it; where the old logo
   was, neutral artwork or nothing. Portal credits, "powered by" links and
   sitelocks are removed entirely
-- ✅ **Complete file cleaning** — every shipped file is scrubbed so that neither the source platform name nor the original game name appears inside the game (code, assets, atlases, manifests); verified with a full recursive case-insensitive grep (0 in-game hits) before deploy
+- ✅ **Complete platform & name scrub** — every shipped file is scrubbed so that NEITHER the source platform name (whatever it is: Poki, Softgames, Construct, Phaser, PixiJS, Unity, Godot, Famobi, …) NOR the original game name appears inside the game (code, assets, atlases, manifests, metadata, strings, URLs, file names); verified with a full recursive case-insensitive grep asserting **0 in-game hits** before deploy
 - ✅ **Original games only** — classic games built on an already-known
   concept (2048, snake, solitaire, memory, Tetris-like, flappy/wordle
   clones…) and famous-title clones are rejected during selection

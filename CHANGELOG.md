@@ -3,6 +3,19 @@
 All notable changes to the **web-game-offliner** skill.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.9.0] — 2026-10-18
+
+### Changed
+- **Complete platform & original-name scrub made explicit and mandatory**: cleaning
+  a game now requires scrubbing EVERY shipped file so that NEITHER the source
+  platform name (whatever it is: Poki, Softgames, Construct, Phaser, PixiJS,
+  Unity, Godot, Famobi, …) NOR the original game name appears anywhere inside
+  the game (code, assets, atlases, manifests, metadata, strings, URLs, file
+  names). A partial clean is a FAILED build. Verification: full recursive
+  case-insensitive grep asserting 0 in-game hits for BOTH terms before deploy.
+  The platform name and old game name survive ONLY on delivery surfaces (repo
+  name, Pages URL, ZIP name, README heading, <title>/PWA metadata).
+
 ## [1.8.0] — 2026-09-22
 
 ### Added
