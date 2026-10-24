@@ -1,8 +1,8 @@
 # web-game-offliner 🎮
 
 An agent skill for **Codebuff / any .agents-compatible agent**: download any
-web game from any portal and any engine (Softgames,
-Construct, Phaser, PixiJS, Unity WebGL, Godot WebGL…), strip its platform
+web game from any portal and any engine (Softgames, Construct, Phaser, PixiJS…),
+with Godot WebGL and Unity WebGL explicitly excluded, strip its platform
 SDK, patch it into a **100% offline standalone build**, validate it with
 Playwright + an application firewall, and deploy it to GitHub Pages **under
 the game's original name (repo + Pages URL)** — ZIP file name, README heading
@@ -20,13 +20,12 @@ the Famobi wrapper; and Playgama-distributed games are excluded (playgama.com).
 > Proven end-to-end on 5 shipped games (Construct 3, Phaser 2, Phaser 3,
 > PixiJS 5, custom canvas engines) — including the traps: poisoned 404 assets,
 > frozen ad callbacks, 2048px mobile GPU texture limits, minified-code surgery.
-> Unity WebGL exports are eligible since v1.3.0 and Godot exports since
-> v1.4.0 — since v1.5.0 there is NO engine priority and NO platform
-> preference anymore: selection is driven by ORIGINALITY only, a hard 20 MB
-> size cap applies to every engine alike, since v1.6.0 a game already
-> distributed on GamePix or GameMonetize is excluded, and since v1.7.0 any
-> Famobi-licensed game is excluded too — even when it surfaces on another
-> portal through the Famobi wrapper.
+> Godot WebGL and Unity WebGL are excluded — neither engine is accepted;
+> selection is driven by ORIGINALITY only, a hard 20 MB size cap applies to
+every accepted engine alike, since v1.6.0 a game already distributed on
+GamePix or GameMonetize is excluded, and since v1.7.0 any Famobi-licensed
+game is excluded too — even when it surfaces on another portal through the
+Famobi wrapper.
 
 ## What the skill does
 
@@ -59,7 +58,7 @@ Every phase encodes the hard-won gotchas that break naive attempts:
   file name, README heading and in-game metadata (`<title>`, PWA) carry an
   INVENTED name. Where the old logo was, neutral artwork or nothing. Portal
   credits, "powered by" links and sitelocks are removed entirely
-- ✅ **Complete platform & name scrub** — every shipped file is scrubbed so that NEITHER the source platform name (whatever it is: Poki, Softgames, Construct, Phaser, PixiJS, Unity, Godot, Famobi, …) NOR the original game name appears inside the game (code, assets, atlases, manifests, metadata, strings, URLs, file names); verified with a full recursive case-insensitive grep asserting **0 in-game hits** before deploy
+- ✅ **Complete platform & name scrub** — every shipped file is scrubbed so that NEITHER the source platform name (whatever it is: Poki, Softgames, Construct, Phaser, PixiJS, Famobi, …) NOR the original game name appears inside the game (code, assets, atlases, manifests, metadata, strings, URLs, file names); verified with a full recursive case-insensitive grep asserting **0 in-game hits** before deploy
 - ✅ **Original games only** — classic games built on an already-known
   concept (2048, snake, solitaire, memory, Tetris-like, flappy/wordle
   clones…) and famous-title clones are rejected during selection
@@ -76,8 +75,9 @@ Every phase encodes the hard-won gotchas that break naive attempts:
 - ✅ **Poki games excluded (v1.11.0)** — Poki is an excluded source platform: never
   search Poki's catalog and never pick a game distributed on Poki (poki.com);
   any hit = disqualified, the game must be left alone
-- ✅ **20 MB size cap for EVERY engine** — HEAD-measured before download,
-  no exception (Unity, Godot, Construct, Phaser, PixiJS, custom…)
+- ✅ **20 MB size cap for EVERY accepted engine** — HEAD-measured before download,
+  no exception (Construct, Phaser, PixiJS, custom…); Godot WebGL and Unity
+  WebGL are excluded entirely
 - ✅ **Game-files-only ZIP** — no README, no docs, no tooling inside the archive
 - ✅ **Clean deliverable file names** — no `poki_nettoyé.js`-style names; the
   repo looks like a professional game project, capture/test scripts stay in
@@ -85,11 +85,10 @@ Every phase encodes the hard-won gotchas that break naive attempts:
 - ✅ **Strict two-section README (in English)** — "About the game" (a vivid,
   flattering description with zero tech talk) + "Controls" (one careful
   subsection per platform)
-- ✅ Unity WebGL playbook — capture, compression handling, SendMessage/jslib
-  shims, bundle-safe de-branding
-- ✅ Godot WebGL playbook — `.pck` capture, side files, MIME, no-binary-
-  surgery de-branding
+- ✅ Godot and Unity WebGL are excluded — no Godot (.pck) nor Unity WebGL
+exports are accepted or processed
 - ✅ Live-URL verification after Pages build, not just local testing
+
 
 ## Install
 
