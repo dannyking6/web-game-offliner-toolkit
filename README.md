@@ -93,7 +93,7 @@ exports are accepted or processed
 ## Install
 
 ```bash
-npx skills add dannyking13/web-game-offliner-toolkit --skill web-game-offliner --yes
+npx skills add dannyking6/web-game-offliner-toolkit --skill web-game-offliner --yes
 ```
 
 Or manually: copy `SKILL.md` into your project at
